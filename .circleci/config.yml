@@ -29,4 +29,4 @@ jobs:
               awscli==1.11.76
       - run:
           name: Build Docker images
-          command: cd services/movies && docker build -t movies:beta .
+          command: docker-compose -f docker-compose-new.yml build
