@@ -32,4 +32,3 @@ services:
         condition: service_started
     links:
       - movies-db-review
-      - users-service-review
