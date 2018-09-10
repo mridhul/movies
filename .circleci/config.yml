@@ -33,3 +33,9 @@ jobs:
       - run:
           name: Spin up Docker containers
           command: docker-compose -f docker-compose-new.yml up -d
+      - run:
+          name: Deploy
+          command: |
+            npm install
+            node ecs/scripts/setup.js
+            sh ecs/scripts/ecr.sh
