@@ -3,7 +3,7 @@ version: '2.1'
 services:
 
   movies-db-review:
-    container_name: movies-db-review
+    container_name: movies-db
     build: ./services/movies/src/db
     ports:
       - '5434:5432' # expose ports - HOST:CONTAINER
@@ -14,7 +14,7 @@ services:
       test: exit 0
 
   movies-service-review:
-    container_name: movies-service-review
+    container_name: movies
     build:
       context: ./services/movies/
       dockerfile: Dockerfile-review
@@ -26,7 +26,7 @@ services:
       - NODE_ENV=${NODE_ENV}
       - TOKEN_SECRET=changeme
     depends_on:
-      movies-db-review:
+      movies-db:
         condition: service_healthy
     links:
-      - movies-db-review
+      - movies-db
