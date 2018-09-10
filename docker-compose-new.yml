@@ -5,6 +5,7 @@ services:
   movies-db:
     container_name: movies-db
     build: ./services/movies/src/db
+    image: movies/movies-db
     ports:
       - '5434:5432' # expose ports - HOST:CONTAINER
     environment:
@@ -18,6 +19,7 @@ services:
     build:
       context: ./services/movies/
       dockerfile: Dockerfile-review
+    image: movies/core
     ports:
       - '3001:3000' # expose ports - HOST:CONTAINER
     environment:
