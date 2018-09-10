@@ -29,22 +29,4 @@ jobs:
               awscli==1.11.76
       - run:
           name: Build Docker images
-          command: docker-compose -f docker-compose-review.yml build
-      - run:
-          name: Spin up Docker containers
-          command: docker-compose -f docker-compose-review.yml up -d
-      - run:
-          name: Test the user service
-          command: docker-compose -f docker-compose-review.yml run users-service-review npm test
-      - run:
-          name: Test the movies service
-          command: docker-compose -f docker-compose-review.yml run movies-service-review npm test
-      - run:
-          name: Deploy
-          command: |
-            npm install
-            node ecs/scripts/setup.js
-            sh ecs/scripts/ecr.sh
-            node ecs/scripts/tasks.js
-            node ecs/scripts/alb.js
-            node ecs/scripts/services.js
+          command: docker build -t movies:beta .
