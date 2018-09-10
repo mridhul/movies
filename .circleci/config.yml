@@ -30,6 +30,6 @@ jobs:
       - run:
           name: Build Docker images
           command: docker-compose -f docker-compose-new.yml build
-       - run:
+      - run:
           name: Spin up Docker containers
           command: docker-compose -f docker-compose-new.yml up -d
