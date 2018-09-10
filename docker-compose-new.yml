@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
 
-  movies-db-review:
+  movies-db:
     container_name: movies-db
     build: ./services/movies/src/db
     ports:
