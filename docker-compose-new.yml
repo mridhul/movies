@@ -13,7 +13,7 @@ services:
     healthcheck:
       test: exit 0
 
-  movies-service-review:
+  movies:
     container_name: movies
     build:
       context: ./services/movies/
