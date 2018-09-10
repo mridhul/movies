@@ -1,0 +1,35 @@
+version: '2.1'
+
+services:
+
+  movies-db-review:
+    container_name: movies-db-review
+    build: ./services/movies/src/db
+    ports:
+      - '5434:5432' # expose ports - HOST:CONTAINER
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: exit 0
+
+  movies-service-review:
+    container_name: movies-service-review
+    build:
+      context: ./services/movies/
+      dockerfile: Dockerfile-review
+    ports:
+      - '3001:3000' # expose ports - HOST:CONTAINER
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@movies-db-review:5432/movies_dev
+      - DATABASE_TEST_URL=postgres://postgres:postgres@movies-db-review:5432/movies_test
+      - NODE_ENV=${NODE_ENV}
+      - TOKEN_SECRET=changeme
+    depends_on:
+      movies-db-review:
+        condition: service_healthy
+      users-service-review:
+        condition: service_started
+    links:
+      - movies-db-review
+      - users-service-review
